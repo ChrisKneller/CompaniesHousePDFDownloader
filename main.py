@@ -31,6 +31,8 @@ API_URLS = {
 API_KEY = os.environ.get('CH_API_KEY')
 ACCESS_TOKEN = os.environ.get('CH_ACCESS_TOKEN')
 
+assert API_KEY is not None, "No API key found. Refer to documentation at https://github.com/ChrisKneller/CompaniesHousePDFDownloader"
+assert ACCESS_TOKEN is not None, "No access token found. Refer to documentation at https://github.com/ChrisKneller/CompaniesHousePDFDownloader"
 
 # TODO: make asynchronous
 def ch_download(company_number, filing_history=True, officers=True, charges=True, company_name=False):
@@ -40,7 +42,7 @@ def ch_download(company_number, filing_history=True, officers=True, charges=True
         if not company_name:
             company_name = get_company_name(company_number)
     except Exception as e:
-        print(f"Company not found on Companies: {e}")
+        print(f"Company not found on Companies House: {e}")
         return
 
     directory = create_folder(company_name)
@@ -69,7 +71,6 @@ def get_filing_history(company_number):
     company_number = str(company_number)
     r = requests.get(API_URLS['filing_history'].format(company_number),
                      auth=(API_KEY, ''))
-    print(r)
     data = json.loads(r.text)
     return data
 
@@ -79,7 +80,7 @@ def get_latest_conf_stmt(company_number, company_name=False):
         if not company_name:
             company_name = get_company_name(company_number)
     except Exception as e:
-        print(f"Company not found on Companies: {e}")
+        print(f"Company not found on Companies House: {e}")
         return
 
     # get the filing history of the company
@@ -133,6 +134,7 @@ def get_company_name(company_number):
 
 
 def create_folder(folder_name):
+    folder_name = "_".join(folder_name.split())
     try:
         # Create target Directory
         os.mkdir(folder_name)
