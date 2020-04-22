@@ -28,7 +28,7 @@ python csv_run.py companies.csv
 ```
 
 ## Contributing
-Pull requests are welcome. There is a lot to do on this to make it function better (e.g. tidy up the try & except statements, handle errors better etc.). For major changes, please open an issue first to discuss what you would like to change.
+Pull requests are welcome. There is a lot to do on this to make it function better (e.g. tidy up the try & except statements, handle errors better, making requests asynchronous etc.). For major changes, please open an issue first to discuss what you would like to change.
 
 ## License
 [MIT](https://github.com/ChrisKneller/CompaniesHousePDFDownloader/blob/master/LICENSE)
